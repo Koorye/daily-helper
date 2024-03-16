@@ -1,0 +1,48 @@
+from utils import today
+
+
+cfg = dict(
+    # base config
+    base=dict(
+        cache_dir='cache/{}'.format(today()),
+        remove_cache_before=7, # cache file will be removed before this day ago
+        run_once_per_day=True, # one day only run this program once
+        static_dir='static',
+    ),
+
+    # pipeline config
+    pipeline=[
+        dict(
+            type='StockHelper',
+            index_symbols=['sh000001', 'sh000012', '.NDX'], # index code
+            stock_symbols=[], # stock code
+            days=14, # history days
+        ),
+        dict(
+            type='WeatherHelper',
+            city='成都', 
+            tips=['穿衣指数', '感冒指数', '紫外线指数'] # tips to show
+        ),
+        dict(
+            type='BingWallPaperHelper',
+            url='https://bing.biturl.top/',
+            data=dict(resolution=1920, format='json', index=0, mkt='zh-CN') # params or json data
+        ),  
+        dict(
+            type='MailHelper',
+            user='your username here',
+            password='your password here',
+            host='smtp.your.host.here',
+            port=465,
+            to=['your_target_email1@example.com', 'your_target_email2@example.com'],
+            subject='Daily Report',
+        )
+    ],
+)
+
+
+def get_cfg():
+    for sche in cfg['pipeline']:
+        for k, v in cfg['base'].items():
+            sche[k] = v
+    return cfg

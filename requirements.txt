@@ -1,0 +1,8 @@
+akshare==1.12.92
+pandas==2.0.3
+plotnine==0.12.4
+pyweathercn==1.0.8
+Requests==2.31.0
+statsmodels==0.14.1
+tqdm==4.66.2
+yagmail==0.15.293
