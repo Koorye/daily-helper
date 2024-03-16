@@ -2,7 +2,7 @@
 
 A customizable daily helper that is built in a modular manner and sends reminders in the form of emails.
 
-<img src="examples/show.jpg" width="400" />
+![](examples/show.jpg)
 
 ## Support functions
 
