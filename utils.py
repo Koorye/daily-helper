@@ -1,13 +1,23 @@
 import datetime
 import os
 import os.path as osp
+import requests
 import shutil
+import time
 import uuid
 import yagmail
 
 
 def as_yag_inline(path):
     return yagmail.inline(path)
+
+
+def check_network(url='https://www.baidu.com/'):
+    try:
+        requests.get(url, timeout=1)
+        return True
+    except requests.ConnectionError:
+        return False
 
 
 def check_exist(path):
@@ -40,6 +50,10 @@ def ensure_mkdir(path):
 
 def remove_if_exist(dir_):
     shutil.rmtree(dir_, ignore_errors=True)
+
+
+def sleep(sec=30):
+    time.sleep(sec)
 
 
 def today():

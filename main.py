@@ -1,7 +1,7 @@
 import importlib
 
 from config import get_cfg
-from utils import check_exist, remove_if_exist, clean_cache
+from utils import check_network, check_exist, remove_if_exist, clean_cache, sleep
 
 
 def main():
@@ -15,6 +15,17 @@ def main():
             return
     else:
         remove_if_exist(base_cfg['cache_dir'])
+        
+    # check network
+    retry_time = 0
+    while not check_network():
+        retry_time += 1
+        if retry_time > base_cfg['retry_time']:
+            print(f'Network is not available after {retry_time} times retry, exit!')
+            return
+            
+        print('Network is not available, retry in 30 seconds...')
+        sleep()
 
     # clean cache
     clean_cache(base_cfg['cache_dir'], base_cfg['remove_cache_before'])

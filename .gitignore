@@ -2,6 +2,7 @@ cache/**
 config.py
 test.py
 sh000001.csv
+scripts/cache/**
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
