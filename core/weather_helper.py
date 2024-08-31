@@ -10,7 +10,8 @@ _WEATHER_TO_ENG = {'晴': 'Sunny', '多云': 'Cloudy', '阴': 'Overcast',
                    '阵雨': 'Shower', '小雨': 'Light Rain', '中雨': 'Moderate Rain', 
                    '大雨': 'Heavy Rain', '暴雨': 'Storm', '雾': 'Fog', 
                    '霾': 'Haze', '雪': 'Snow', '雨夹雪': 'Sleet', '小雪': 'Light Snow',
-                   '中雪': 'Moderate Snow', '大雪': 'Heavy Snow', '暴雪': 'Blizzard'}
+                   '中雪': 'Moderate Snow', '大雪': 'Heavy Snow', '暴雪': 'Blizzard',
+                   '雷阵雨': 'Thunder shower'}
 
 
 class WeatherHelper(PlotHelper):
