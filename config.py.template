@@ -14,7 +14,7 @@ cfg = dict(
     pipeline=[
         dict(
             type='StockHelper',
-            index_symbols=['sh000001', 'sh000012', '.NDX'], # index code
+            index_symbols={'sh000001': '上证指数'}, # index code
             stock_symbols=[], # stock code
             days=14, # history days
         ),

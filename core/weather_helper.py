@@ -4,8 +4,8 @@ import pandas as pd
 from ._base_ import PlotHelper
 
 _DEFAULT_CITY = '北京'
-_DEFAULT_WIDTH = 10
-_DEFAULT_HEIGHT = 4
+_DEFAULT_WIDTH = 8
+_DEFAULT_HEIGHT = 3
 _WEATHER_TO_ENG = {'晴': 'Sunny', '多云': 'Cloudy', '阴': 'Overcast', 
                    '阵雨': 'Shower', '小雨': 'Light Rain', '中雨': 'Moderate Rain', 
                    '大雨': 'Heavy Rain', '暴雨': 'Storm', '雾': 'Fog', 
@@ -39,7 +39,7 @@ class WeatherHelper(PlotHelper):
         tips = self._order_tips(data['tip'])
         self._process_forecast(data['forecast'])
 
-        return f'<b>Max Temp</b>: {max_temp}℃\n<b>Min Temp</b>: {min_temp}℃\n<b>AQI</b>: {aqi}\n' \
+        return f'<b>最高温度</b>: {max_temp}℃\n<b>最低温度</b>: {min_temp}℃\n<b>空气质量</b>: {aqi}\n' \
               + '\n'.join([f'<b>{k}</b>: {v}' for k, v in tips.items()])
         
     def _order_tips(self, tips):
@@ -69,7 +69,7 @@ class WeatherHelper(PlotHelper):
         df['date'] = df['date'].apply(lambda x: x.split(' ')[0])
         df['date'] = pd.to_datetime(df['date'])
         df = df.sort_values('date').reset_index(drop=True)
-        types = [str(date.strftime('%m-%d')) + ' ' + _WEATHER_TO_ENG[type_]
+        types = [str(date.strftime('%m-%d')) + ' ' + type_
                  for date, type_ in zip(df['date'], df['type'])]
         
         df['max_temp'] = df['temp'].apply(lambda x: self._split_temp(x)[0])
@@ -80,5 +80,6 @@ class WeatherHelper(PlotHelper):
         self.add_prop(dict(df=temp_df, x='date', y='temp', 
                            xticklabels=types, xticktype='datetime',
                            type='line', color='type',
-                           xlab='Weather', ylab='Temperature', title='Temperature Forecast',
+                           xlab='天气', ylab='温度(℃)', title='天气预报',
+                           legend_alias={'max_temp': '最高温度', 'min_temp': '最低温度'},
                            width=_DEFAULT_WIDTH, height=_DEFAULT_HEIGHT))

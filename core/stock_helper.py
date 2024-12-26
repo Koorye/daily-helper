@@ -5,9 +5,9 @@ from tqdm import tqdm
 
 from ._base_ import PlotHelper
 
-_DEFAULT_DAYS = 7
-_DEFAULT_WIDTH = 10
-_DEFAULT_HEIGHT = 4
+_DEFAULT_DAYS = 30
+_DEFAULT_WIDTH = 8
+_DEFAULT_HEIGHT = 3
 _DEFAULT_FORECAST_DAYS = 7
 
 
@@ -37,6 +37,7 @@ class StockHelper(PlotHelper):
                 else:
                     df = ak.stock_zh_index_daily(symbol)[['date', 'close']].tail(2 * self.days)
                     
+                symbol = self.index_symbols[symbol]
                 df, content = self.process_df(df)
                 result += f'<b>{symbol}</b>: {content}\n'
                 df = self.forecast(df)
@@ -45,7 +46,9 @@ class StockHelper(PlotHelper):
                 df = pd.melt(df, id_vars='date', value_vars=['close', '5day_mean', '10day_mean', 'forecast'],
                             var_name='type', value_name='price')
                 self.add_prop(dict(df=df, x='date', y='price', type='line', color='type',
-                                   xlab='Date', ylab='Price', title=f'{symbol}', 
+                                   xlab='日期', ylab='价格', title=f'{symbol}', 
+                                   legend_alias={'close': '收盘价', '5day_mean': '5日均线', 
+                                                 '10day_mean': '10日均线', 'forecast': '预测走势'},
                                    width=_DEFAULT_WIDTH, height=_DEFAULT_HEIGHT))
             except:
                 result += f'Failed to get {symbol}!\n'
@@ -59,6 +62,7 @@ class StockHelper(PlotHelper):
             try:
                 df = ak.stock_zh_a_daily(symbol)[['date', 'close']]
 
+                symbol = self.index_symbols[symbol]
                 df, content = self.process_df(df)
                 result += f'<b>{symbol}</b>: {content}\n'
                 df = self.forecast(df)
@@ -67,7 +71,9 @@ class StockHelper(PlotHelper):
                 df = pd.melt(df, id_vars='date', value_vars=['close', '5day_mean', '10day_mean', 'forecast'],
                             var_name='type', value_name='price')
                 self.add_prop(dict(df=df, x='date', y='price', type='line', color='type',
-                                   xlab='Date', ylab='Price', title=f'{symbol}', 
+                                   xlab='日期', ylab='价格', title=f'{symbol}', 
+                                   legend_alias={'close': '收盘价', '5day_mean': '5日均线', 
+                                                 '10day_mean': '10日均线', 'forecast': '预测走势'},
                                    width=_DEFAULT_WIDTH, height=_DEFAULT_HEIGHT))
             except:
                 result += f'Failed to get {symbol}!\n'
@@ -80,11 +86,11 @@ class StockHelper(PlotHelper):
         df['10day_mean'] = df.close.rolling(10).mean()
 
         if (df['close'] < df['10day_mean']).tolist()[-1]:
-            return df, '<span style="color: red;">Today\'s price is lower than 10 day mean! </span>'
+            return df, '<span style="color: red;">今日价格低于10日均线! </span>'
         elif (df['close'] < df['5day_mean']).tolist()[-1]:
-            return df, '<span style="color: orange;">Today\'s price is lower than 5 day mean! </span>'
+            return df, '<span style="color: orange;">今日价格低于5日均线! </span>'
         else:
-            return df, 'Today\'s price is safe.'
+            return df, '今日价格安全。'
 
     def forecast(self, df):
         # forecast with ARIMA

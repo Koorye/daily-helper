@@ -17,6 +17,7 @@ _DEFAULT_PLOT_PROP = dict(
     color=None,
     xlab='X',
     ylab='Y',  
+    legend_alias=None,
     title=None,
     width=8,
     height=6,
@@ -43,6 +44,8 @@ class PlotHelper(BaseHelper):
         plots = []
         
         for prop in tqdm(self.props, desc='Plotting'):
+            if prop['legend_alias'] is not None:
+                prop['df'][prop['color']] = prop['df'][prop['color']].map(prop['legend_alias'])
             if prop['type'] == 'line':
                 plots.append(self.line(prop))
             elif prop['type'] == 'bar':
@@ -58,7 +61,8 @@ class PlotHelper(BaseHelper):
             + geom_line() 
             + geom_point()
             + labs(x=prop['xlab'], y=prop['ylab'], title=prop['title'], color='')
-            + theme_seaborn()
+            + theme_minimal()
+            + theme(text=element_text(family=['SimHei']))
             + theme(axis_text_x=element_text(rotation=45, hjust=1))
         )
         return self.custom_ticks(p, prop)
@@ -68,11 +72,12 @@ class PlotHelper(BaseHelper):
             ggplot(prop['df'], aes(prop['x'], prop['y'], fill=prop['color']))
             + geom_col(position='dodge')
             + labs(x=prop['xlab'], y=prop['ylab'], title=prop['title'])
-            + theme_seaborn()
+            + theme_minimal()
+            + theme(text=element_text(family=['SimHei']))
             + theme(axis_text_x=element_text(rotation=45, hjust=1))
         )
         return self.custom_ticks(p, prop)
-    
+
     def custom_ticks(self, plot, prop):
         if prop['xticklabels'] is not None:
             if prop['xticktype'] == 'continuous':

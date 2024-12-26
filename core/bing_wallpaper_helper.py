@@ -10,7 +10,10 @@ class BingWallPaperHelper(WebHelper):
         prev_results.append('\n<h2>Bing Wallpaper</h2>')
         data = self.get().json()
         img_url = data['url']
-        path = self.download(img_url, 'jpg')
-        prev_results.append(as_yag_inline(path))
-        prev_results.append(data['copyright'])
+        try:
+            path = self.download(img_url, 'jpg')
+            prev_results.append(as_yag_inline(path))
+            prev_results.append(data['copyright'])
+        except:
+            prev_results.append('Failed to download image!\n')
         return prev_results
