@@ -21,7 +21,7 @@ class StockHelper(PlotHelper):
     def result(self, prev_results=[]):
         index_result = self.prepare_indexs()
         stock_result = self.prepare_stocks()
-        prev_results.append('\n<h2>Stock Report</h2>')
+        prev_results.append('\n<h2>股市走势报告</h2>')
         results = super().result(prev_results)
         results.append(index_result)
         results.append(stock_result)
