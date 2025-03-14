@@ -5,7 +5,8 @@ from utils import get_random_path, ensure_mkdir
 
 
 _BASE_HEADERS = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3',
+    'content-type': 'application/json',
 }
 
 
@@ -17,7 +18,7 @@ class WebHelper(BaseHelper):
         self.headers.update(_BASE_HEADERS)
         self.data = cfg.get('data', dict())
     
-    def results(self, prev_results=[]):
+    def result(self, prev_results=[]):
         prev_results.append(self.get())
         return prev_results
 
@@ -27,7 +28,7 @@ class WebHelper(BaseHelper):
     
     def post(self, data=dict()):
         data.update(self.data)
-        return requests.post(self.url, headers=self.headers, data=data)
+        return requests.post(self.url, headers=self.headers, json=data)
     
     def download(self, url, suffix):
         resp = requests.get(url, headers=self.headers)

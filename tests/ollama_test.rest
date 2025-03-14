@@ -1,0 +1,24 @@
+###
+POST http://121.48.161.150:11434/api/chat HTTP/1.1
+content-type: application/json
+
+{
+  "model": "deepseek-r1:32b",
+  "messages": [
+    {
+      "role": "user",
+      "content": "hello! who are you?"
+    }
+  ],
+  "stream": false
+}
+
+###
+POST http://121.48.161.150:11434/api/generate HTTP/1.1
+content-type: application/json
+
+{
+  "model": "deepseek-r1:32b",
+  "prompt": "hello! who are you?",
+  "stream": false
+}

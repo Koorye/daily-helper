@@ -19,6 +19,20 @@ cfg = dict(
             days=14, # history days
         ),
         dict(
+            type='StockLLMHelper',
+            title='Deepseek对未来30天的纳斯达克指数走势预测',
+            add_news=True,
+            add_index_info=True,
+            show_prompts=False,
+            show_think=False,
+            url='http://127.0.0.1:11434',
+            model='deepseek-r1:32b',
+            index_symbol='.NDX',
+            index_name='纳斯达克指数',
+            days=30,
+        ),
+        dict(
+        dict(
             type='WeatherHelper',
             city='成都', 
             tips=['穿衣指数', '感冒指数', '紫外线指数'] # tips to show
