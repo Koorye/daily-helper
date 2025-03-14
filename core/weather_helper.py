@@ -80,6 +80,6 @@ class WeatherHelper(PlotHelper):
         self.add_prop(dict(df=temp_df, x='date', y='temp', 
                            xticklabels=types, xticktype='datetime',
                            type='line', color='type',
-                           xlab='天气', ylab='温度(℃)', title='天气预报',
+                           xlab='天气', ylab='温度(℃)', title=f'{self.city}天气预报',
                            legend_alias={'max_temp': '最高温度', 'min_temp': '最低温度'},
                            width=_DEFAULT_WIDTH, height=_DEFAULT_HEIGHT))

@@ -36,8 +36,9 @@ class ArXivHelper(OllamaHelper):
         wc = wordcloud.WordCloud(width=800, height=400, stopwords=stopwords, background_color='white')
         wc.generate(text)
         
-        os.makedirs('cache', exist_ok=True)
-        save_path = f'cache/{uuid.uuid4()}.png'
+        cache_dir = self.cfg.get('cache_dir')
+        os.makedirs(cache_dir, exist_ok=True)
+        save_path = f'{cache_dir}/{uuid.uuid4()}.png'
         wc.to_file(save_path)
         return as_yag_inline(save_path)
 
