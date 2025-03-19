@@ -6,6 +6,7 @@ cfg = dict(
     base=dict(
         cache_dir='cache/{}'.format(today()),
         remove_cache_before=7, # cache file will be removed before this day ago
+        retry_time=3,
         run_once_per_day=True, # one day only run this program once
         static_dir='static',
     ),
@@ -32,6 +33,15 @@ cfg = dict(
             days=30,
         ),
         dict(
+            type='ArXivHelper',
+            title='Deepseek对近日CV研究热点的概括',
+            query='cat:cs.CV',
+            max_results=100,
+            show_prompts=False,
+            show_think=False,
+            url='http://127.0.0.1:11434',
+            model='deepseek-r1:32b',
+        ),
         dict(
             type='WeatherHelper',
             city='成都', 
@@ -42,6 +52,10 @@ cfg = dict(
             url='https://bing.biturl.top/',
             data=dict(resolution=1920, format='json', index=0, mkt='zh-CN') # params or json data
         ),  
+        dict(
+            type='SummaryHelper',
+            generate_toc=True,
+        ),
         dict(
             type='MailHelper',
             user='your username here',
