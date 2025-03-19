@@ -1,3 +1,5 @@
+import markdown2
+
 from . import WebHelper
 
 
@@ -19,9 +21,9 @@ class OllamaHelper(WebHelper):
         prev_results.append(f'<h2>{self.title}</h2>')
         
         if self.show_prompts:
-            prev_results.append(self.prompts)
+            prev_results.append(self.prompts.strip() + '\n')
         
-        results = self.post()
+        results = self._post_processing_html(markdown2.markdown(self.post().strip()))
         if not self.show_think and '</think>' in results:
             results = results.split('</think>')[1]
             
@@ -34,3 +36,6 @@ class OllamaHelper(WebHelper):
     
     def _prepare_prompts(self):
         raise NotImplementedError
+
+    def _post_processing_html(self, text):
+        return text.replace('\n\n', '\n').replace('<hr>\n', '').replace('<hr />\n', '')

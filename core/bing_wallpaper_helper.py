@@ -7,7 +7,7 @@ class BingWallPaperHelper(WebHelper):
         super().__init__(cfg)
 
     def result(self, prev_results=[]):
-        prev_results.append('\n<h2>Bing Wallpaper</h2>')
+        prev_results.append('<h2>每日必应壁纸</h2>')
         data = self.get().json()
         img_url = data['url']
         try:

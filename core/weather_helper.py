@@ -21,7 +21,7 @@ class WeatherHelper(PlotHelper):
         self.tips = cfg.get('tips', [])
         
     def result(self, prev_results=[]):
-        prev_results.append(f'\n<h2>{self.city}天气预报</h2>')
+        prev_results.append(f'<h2>{self.city}天气预报</h2>')
         result = self.prepare_weather()
         prev_results = super().result(prev_results)
         prev_results.append(result)

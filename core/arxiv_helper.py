@@ -21,7 +21,7 @@ class ArXivHelper(OllamaHelper):
         prompts = '最新论文：\n'
         for i, result in enumerate(results):
             prompts += f'({i}) {result.title}\n'
-        prompts += '你是一名专业的科研人员，请你根据上述论文，概括近日研究热点：\n'
+        prompts += '你是一名专业的科研人员，请你根据上述论文，概括近日研究热点，并列出每个热点的相关论文名字：\n'
         return prompts
 
     def _plot_wordcloud(self):
