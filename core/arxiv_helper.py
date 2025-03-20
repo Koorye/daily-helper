@@ -9,6 +9,8 @@ from utils import as_yag_inline
 
 _STOPWORDS_PATH = 'static/stopwords.txt'
 
+_PROMPT = '''你是一名专业的科研人员，请你根据上述论文，概括近日研究热点关键词和内容，并列举相关论文名字和思想概括：'''
+
 
 class ArXivHelper(OllamaHelper):
     def result(self, prev_results=[]):
@@ -20,8 +22,8 @@ class ArXivHelper(OllamaHelper):
         results = self._get_arxiv()
         prompts = '最新论文：\n'
         for i, result in enumerate(results):
-            prompts += f'({i}) {result.title}\n'
-        prompts += '你是一名专业的科研人员，请你根据上述论文，概括近日研究热点，并列出每个热点的相关论文名字：\n'
+            prompts += f'({i + 1}) {result.title}\n'
+        prompts += _PROMPT
         return prompts
 
     def _plot_wordcloud(self):
