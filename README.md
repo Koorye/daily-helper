@@ -8,8 +8,10 @@ A customizable daily helper that is built in a modular manner and sends reminder
 
 1. **Stock/Index Helper**: Record recent stock/index trend information and predict future trend (not accurate).
 2. **Weather Helper**: Report current day weather information and forecast future weather conditions.
-3. **Bing Wallpaper Helper**: Send Bing wallpapers daily.
-4. **Mail Helper**: Send report to your email.
+3. **Stock LLM Helper**: Use LLM model to predict stock trend.
+4. **ArXiv Helper**: Collect recent papers from arXiv and use LLM model to summarize recent topics.
+5. **Bing Wallpaper Helper**: Send Bing wallpapers daily.
+6. **Mail Helper**: Send report to your email.
 
 ## How to use
 
